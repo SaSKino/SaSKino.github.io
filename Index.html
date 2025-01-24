@@ -1,7 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kino for School</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .login-screen {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .timetable {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color: #333;
+            color: white;
+        }
+        .edit-buttons {
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <header>
+        <h1>Kino for School</h1>
+    </header>
+
+    <div class="timetable">
+        <h2>Movie Timetable</h2>
+        <table id="timetable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Movie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2025-01-25</td>
+                    <td>18:00</td>
+                    <td>Inception</td>
+                </tr>
+                <tr>
+                    <td>2025-01-26</td>
+                    <td>20:00</td>
+                    <td>Interstellar</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="edit-buttons">
+            <button onclick="addRow()">Add Row</button>
+            <button onclick="saveTimetable()">Save Timetable</button>
+        </div>
+    </div>
+
+    <button onclick="showLogin()">Worker Login</button>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="login-screen" id="loginScreen">
+        <h3>Worker Login</h3>
+        <input type="text" id="username" placeholder="Username"><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="login()">Login</button>
+        <button onclick="hideLogin()">Cancel</button>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('loginScreen').style.display = 'block';
+        }
+
+        function hideLogin() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'none';
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'worker' && password === 'kino123') {
+                alert('Login successful!');
+                document.querySelector('.edit-buttons').style.display = 'block';
+                hideLogin();
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        function addRow() {
+            const table = document.getElementById('timetable').querySelector('tbody');
+            const row = table.insertRow();
+
+            const dateCell = row.insertCell(0);
+            const timeCell = row.insertCell(1);
+            const movieCell = row.insertCell(2);
+
+            dateCell.contentEditable = true;
+            timeCell.contentEditable = true;
+            movieCell.contentEditable = true;
+
+            dateCell.textContent = 'YYYY-MM-DD';
+            timeCell.textContent = 'HH:MM';
+            movieCell.textContent = 'New Movie';
+        }
+
+        function saveTimetable() {
+            alert('Timetable saved!');
+        }
+    </script>
 </body>
 </html>
