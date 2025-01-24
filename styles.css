@@ -48,7 +48,7 @@ table th, table td {
   display: none;
 }
 
-#login-modal, #account-modal {
+#login-modal {
   position: fixed;
   top: 0;
   left: 0;
