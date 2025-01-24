@@ -1,0 +1,2 @@
+10:00 AM;Movie A
+1:00 PM;Movie B
