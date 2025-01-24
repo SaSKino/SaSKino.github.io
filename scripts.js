@@ -1,49 +1,48 @@
-// Mock encrypted login credentials
-const encryptedLoginData = "776f726b65723a6b696e6f313233"; // Encoded: "worker:kino123"
-
-// Function to decrypt login data
-function decryptLoginData(encryptedData) {
-  const decoded = atob(encryptedData);
-  const [username, password] = decoded.split(":");
-  return { username, password };
+// Fetch encrypted login data from file
+async function fetchLoginData() {
+  const response = await fetch("login_data.txt");
+  const encryptedData = await response.text();
+  return atob(encryptedData); // Decode Base64
 }
 
-// Decrypt the login data
-const { username: storedUsername, password: storedPassword } = decryptLoginData(encryptedLoginData);
+// Validate user credentials
+async function validateLogin(username, password) {
+  const loginData = await fetchLoginData();
+  const accounts = loginData.split("\n").filter((line) => line.trim() !== "");
 
-// Login functionality
-const loginModal = document.getElementById("login-modal");
-const workerLoginButton = document.getElementById("worker-login");
-const closeModalButton = document.getElementById("close-modal");
+  for (const account of accounts) {
+    const [storedUsername, storedPassword] = account.split(";");
+    if (username === storedUsername && password === storedPassword) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Event listeners for login form
 const loginForm = document.getElementById("login-form");
+const loginModal = document.getElementById("login-modal");
 
-// Show login modal
-workerLoginButton.addEventListener("click", () => {
-  loginModal.classList.remove("hidden");
-});
-
-// Close login modal
-closeModalButton.addEventListener("click", () => {
-  loginModal.classList.add("hidden");
-});
-
-// Handle login form submission
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  const enteredUsername = document.getElementById("username").value;
-  const enteredPassword = document.getElementById("password").value;
-
-  if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
-    alert("Login successful! Timetable is now editable.");
+  if (await validateLogin(username, password)) {
+    alert(`Login successful as ${username}!`);
     loginModal.classList.add("hidden");
-    makeTimetableEditable();
+
+    // Make timetable editable for specific roles
+    if (username === "Arbeiter" || username === "Admin" || username === "Besitzer") {
+      makeTimetableEditable();
+    }
   } else {
-    alert("Invalid credentials!");
+    alert("Invalid credentials. Please try again.");
   }
 });
 
-// Make timetable editable
+// Function to make timetable editable
 function makeTimetableEditable() {
   const table = document.getElementById("showtimes");
   const rows = table.querySelectorAll("tbody tr");
@@ -52,5 +51,5 @@ function makeTimetableEditable() {
     row.contentEditable = true;
   });
 
-  alert("You can now edit the timetable!");
+  alert("Timetable is now editable!");
 }
