@@ -13,7 +13,7 @@
     <button id="login-btn">Login</button>
   </nav>
 
-  <!-- Timetable -->
+  <!-- Timetable Section -->
   <section id="timetable">
     <h2>Movie Timetable</h2>
     <table id="showtimes">
@@ -23,17 +23,12 @@
           <th>Movie</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>10:00 AM</td>
-          <td>Movie A</td>
-        </tr>
-        <tr>
-          <td>1:00 PM</td>
-          <td>Movie B</td>
-        </tr>
+      <tbody id="timetable-body">
+        <!-- Timetable rows will be loaded dynamically -->
       </tbody>
     </table>
+    <button id="edit-timetable" class="hidden">Edit Timetable</button>
+    <button id="save-timetable" class="hidden">Save Timetable</button>
   </section>
 
   <!-- Login Modal -->
@@ -48,22 +43,6 @@
         <button type="submit">Login</button>
       </form>
       <button id="close-modal">Close</button>
-    </div>
-  </div>
-
-  <!-- Account Management Modal -->
-  <div id="account-modal" class="hidden">
-    <div class="modal-content">
-      <h2>Manage Accounts</h2>
-      <form id="add-account-form">
-        <label for="new-username">New Username:</label>
-        <input type="text" id="new-username" required>
-        <label for="new-password">New Password:</label>
-        <input type="password" id="new-password" required>
-        <button type="submit">Add Account</button>
-      </form>
-      <ul id="account-list"></ul>
-      <button id="close-account-modal">Close</button>
     </div>
   </div>
 
