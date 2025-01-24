@@ -1,14 +1,14 @@
-// Fetch encrypted login data from file
+// Fetch and decode login data
 async function fetchLoginData() {
   const response = await fetch("login_data.txt");
   const encryptedData = await response.text();
-  return atob(encryptedData); // Decode Base64
+  return atob(encryptedData); // Base64 decode
 }
 
 // Validate user credentials
 async function validateLogin(username, password) {
   const loginData = await fetchLoginData();
-  const accounts = loginData.split("\n").filter((line) => line.trim() !== "");
+  const accounts = loginData.split("\n").filter(Boolean);
 
   for (const account of accounts) {
     const [storedUsername, storedPassword] = account.split(";");
@@ -16,40 +16,36 @@ async function validateLogin(username, password) {
       return true;
     }
   }
-
   return false;
 }
 
-// Event listeners for login form
-const loginForm = document.getElementById("login-form");
-const loginModal = document.getElementById("login-modal");
+// Event listeners for login modal
+document.getElementById("login-btn").addEventListener("click", () => {
+  document.getElementById("login-modal").classList.remove("hidden");
+});
 
-loginForm.addEventListener("submit", async (e) => {
+document.getElementById("close-modal").addEventListener("click", () => {
+  document.getElementById("login-modal").classList.add("hidden");
+});
+
+document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
   if (await validateLogin(username, password)) {
-    alert(`Login successful as ${username}!`);
-    loginModal.classList.add("hidden");
+    alert(`Welcome, ${username}!`);
+    document.getElementById("login-modal").classList.add("hidden");
 
-    // Make timetable editable for specific roles
-    if (username === "Arbeiter" || username === "Admin" || username === "Besitzer") {
-      makeTimetableEditable();
+    if (username === "Besitzer") {
+      showAccountManagement();
     }
   } else {
     alert("Invalid credentials. Please try again.");
   }
 });
 
-// Function to make timetable editable
-function makeTimetableEditable() {
-  const table = document.getElementById("showtimes");
-  const rows = table.querySelectorAll("tbody tr");
-
-  rows.forEach((row) => {
-    row.contentEditable = true;
-  });
-
-  alert("Timetable is now editable!");
+// Placeholder function for account management
+function showAccountManagement() {
+  document.getElementById("account-modal").classList.remove("hidden");
 }
