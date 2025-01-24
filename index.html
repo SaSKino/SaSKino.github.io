@@ -3,59 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kino for School</title>
+  <title>SASKino</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Film Flair - Kino for School</h1>
-  </header>
+  <!-- Navigation Bar -->
+  <nav>
+    <h1>SASKino</h1>
+    <button id="login-btn">Login</button>
+  </nav>
 
-  <main>
-    <!-- Public Timetable -->
-    <section id="timetable">
-      <h2>Timetable</h2>
-      <table id="showtimes">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Movie</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10:00 AM</td>
-            <td>Sample Movie</td>
-          </tr>
-          <tr>
-            <td>12:00 PM</td>
-            <td>Sample Movie 2</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+  <!-- Timetable -->
+  <section id="timetable">
+    <h2>Movie Timetable</h2>
+    <table id="showtimes">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Movie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10:00 AM</td>
+          <td>Movie A</td>
+        </tr>
+        <tr>
+          <td>1:00 PM</td>
+          <td>Movie B</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="hidden">
-      <div class="modal-content">
-        <h2>Worker Login</h2>
-        <form id="login-form">
-          <label for="username">Username:</label>
-          <input type="text" id="username" required>
-          <label for="password">Password:</label>
-          <input type="password" id="password" required>
-          <button type="submit">Login</button>
-        </form>
-        <button id="close-modal">Close</button>
-      </div>
+  <!-- Login Modal -->
+  <div id="login-modal" class="hidden">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Login</button>
+      </form>
+      <button id="close-modal">Close</button>
     </div>
+  </div>
 
-    <button id="worker-login">Worker Login</button>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Kino for School</p>
-  </footer>
+  <!-- Account Management Modal (only for Besitzer) -->
+  <div id="account-modal" class="hidden">
+    <div class="modal-content">
+      <h2>Manage Accounts</h2>
+      <form id="add-account-form">
+        <label for="new-username">New Username:</label>
+        <input type="text" id="new-username" required>
+        <label for="new-password">New Password:</label>
+        <input type="password" id="new-password" required>
+        <button type="submit">Add Account</button>
+      </form>
+      <ul id="account-list"></ul>
+      <button id="close-account-modal">Close</button>
+    </div>
+  </div>
 
   <script src="scripts.js"></script>
 </body>
