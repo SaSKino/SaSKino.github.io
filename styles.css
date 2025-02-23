@@ -12,28 +12,29 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
 }
 
 nav h1 {
   margin: 0;
 }
 
-nav button {
+.login-button {
   background-color: #007bff;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-nav button:hover {
+.login-button:hover {
   background-color: #0056b3;
 }
 
 /* Timetable */
 #timetable {
-  padding: 1rem;
+  padding: 2rem;
 }
 
 table {
@@ -41,19 +42,15 @@ table {
   border-collapse: collapse;
 }
 
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
+th, td {
+  border: 1px solid #ddd;
+  padding: 1rem;
   text-align: left;
 }
 
-/* Hides elements */
-.hidden {
-  display: none;
-}
-
-/* Login modal styling */
+/* Login Modal */
 #login-modal {
+  display: none; /* Hide modal by default */
   position: fixed;
   top: 0;
   left: 0;
@@ -68,16 +65,39 @@ table th, table td {
 .modal-content {
   background-color: white;
   padding: 2rem;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .modal-content h2 {
   margin-top: 0;
 }
 
-.modal-content button {
-  margin-top: 1rem;
+.modal-content input {
+  display: block;
+  width: 100%;
   padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-content button {
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.close-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.close-button:hover {
+  background-color: #c0392b;
+}
+
+/* Show modal */
+.show {
+  display: flex !important;
 }
